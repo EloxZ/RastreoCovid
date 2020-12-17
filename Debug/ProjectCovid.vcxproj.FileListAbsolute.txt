@@ -1,0 +1,5 @@
+C:\Users\EloyB\source\repos\ProjectCovid\Debug\ProjectCovid.vcxprojAssemblyReference.cache
+C:\Users\EloyB\source\repos\ProjectCovid\Debug\ProjectCovid.exe
+C:\Users\EloyB\source\repos\ProjectCovid\Debug\ProjectCovid.pdb
+C:\Users\EloyB\source\repos\ProjectCovid\Debug\ProjectCovid.MyForm.resources
+C:\Users\EloyB\source\repos\ProjectCovid\Debug\ProjectCovid.vcxproj.GenerateResource.cache
