@@ -2,7 +2,10 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>C:\Users\EloyB\source\repos\ProjectCovid\Debug\ProjectCovid.exe</FullPath>
+      <FullPath>W:\SubEscritorio\Uma\Gestion de la información\RastreoCovid\Debug\ProjectCovid.exe</FullPath>
+    </ProjectOutput>
+    <ProjectOutput>
+      <FullPath>W:\SubEscritorio\Uma\Gestion de la información\RastreoCovid\Debug\ProjectCovid.exe.config</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles />
