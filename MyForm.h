@@ -1,9 +1,9 @@
 #pragma once
-#include "BDConn.h"
+#include "Persona.h"
+#include <string>
 
 
 namespace ProjectCovid {
-
 
 	using namespace System;
 	using namespace System::ComponentModel;
@@ -12,8 +12,6 @@ namespace ProjectCovid {
 	using namespace System::Data;
 	using namespace System::Drawing;
 	using namespace MySql::Data::MySqlClient;
-	
-	
 
 	/// <summary>
 	/// Ventana principal del programa.
@@ -21,12 +19,28 @@ namespace ProjectCovid {
 	public ref class MyForm : public System::Windows::Forms::Form
 	{
 	public:
+
+		Persona^ seleccionado;
+		Persona^ seleccionado2;
+
 		MyForm(void)
 		{
 			InitializeComponent();
-			//
-			//TODO: agregar código de constructor aquí
-			//
+
+			//Funciones utiles
+			//MySqlCommand^ connCmd = gcnew MySqlCommand(SQLQuery, conn);
+			//MySqlDataReader^ dataReader;
+
+
+			// Buscar en la base de datos la tabla People
+			String^ SQLQuery = "SELECT * FROM People;";
+			String^ connectionInfo = "datasource=ingreq2021-mysql.cobadwnzalab.eu-central-1.rds.amazonaws.com;port=3306;username=grupo11;password=villalbaaguayo2020;database=apsgrupo11";
+			MySqlConnection^ conn = gcnew MySqlConnection(connectionInfo);
+			MySqlDataAdapter^ adpt = gcnew MySqlDataAdapter(SQLQuery, conn);
+
+			DataSet^ dset = gcnew DataSet();
+			adpt->Fill(dset);
+			gvPersonas->DataSource = dset->Tables[0];
 		}
 
 	protected:
@@ -43,9 +57,9 @@ namespace ProjectCovid {
 	private: System::Windows::Forms::DataGridView^ gvPersonas;
 	protected:
 
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ ID;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Nombre;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Apellidos;
+
+
+
 	private: System::Windows::Forms::Label^ labelPersonas;
 	private: System::Windows::Forms::ListBox^ lbAmigos;
 	private: System::Windows::Forms::ListBox^ lbDisponibles;
@@ -53,7 +67,7 @@ namespace ProjectCovid {
 	private: System::Windows::Forms::Label^ label1;
 	private: System::Windows::Forms::Button^ btAmigoToDisponible;
 	private: System::Windows::Forms::Button^ btDisponibleToAmigo;
-	private: System::Windows::Forms::Button^ button1;
+
 	protected:
 
 	private:
@@ -70,9 +84,6 @@ namespace ProjectCovid {
 		void InitializeComponent(void)
 		{
 			this->gvPersonas = (gcnew System::Windows::Forms::DataGridView());
-			this->ID = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->Nombre = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->Apellidos = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->labelPersonas = (gcnew System::Windows::Forms::Label());
 			this->lbAmigos = (gcnew System::Windows::Forms::ListBox());
 			this->lbDisponibles = (gcnew System::Windows::Forms::ListBox());
@@ -80,44 +91,26 @@ namespace ProjectCovid {
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->btAmigoToDisponible = (gcnew System::Windows::Forms::Button());
 			this->btDisponibleToAmigo = (gcnew System::Windows::Forms::Button());
-			this->button1 = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->gvPersonas))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// gvPersonas
 			// 
+			this->gvPersonas->AllowUserToAddRows = false;
+			this->gvPersonas->AllowUserToDeleteRows = false;
 			this->gvPersonas->BackgroundColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(125)),
 				static_cast<System::Int32>(static_cast<System::Byte>(132)), static_cast<System::Int32>(static_cast<System::Byte>(178)));
 			this->gvPersonas->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-			this->gvPersonas->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(3) {
-				this->ID, this->Nombre,
-					this->Apellidos
-			});
+			this->gvPersonas->EditMode = System::Windows::Forms::DataGridViewEditMode::EditProgrammatically;
 			this->gvPersonas->Location = System::Drawing::Point(56, 90);
 			this->gvPersonas->MultiSelect = false;
 			this->gvPersonas->Name = L"gvPersonas";
+			this->gvPersonas->ReadOnly = true;
 			this->gvPersonas->SelectionMode = System::Windows::Forms::DataGridViewSelectionMode::FullRowSelect;
 			this->gvPersonas->Size = System::Drawing::Size(343, 319);
 			this->gvPersonas->TabIndex = 0;
 			this->gvPersonas->CellContentClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &MyForm::dataGridView1_CellContentClick);
-			// 
-			// ID
-			// 
-			this->ID->HeaderText = L"ID";
-			this->ID->Name = L"ID";
-			this->ID->ReadOnly = true;
-			// 
-			// Nombre
-			// 
-			this->Nombre->HeaderText = L"Nombre";
-			this->Nombre->Name = L"Nombre";
-			this->Nombre->ReadOnly = true;
-			// 
-			// Apellidos
-			// 
-			this->Apellidos->HeaderText = L"Apellidos";
-			this->Apellidos->Name = L"Apellidos";
-			this->Apellidos->ReadOnly = true;
+			this->gvPersonas->SelectionChanged += gcnew System::EventHandler(this, &MyForm::gvPersonas_SelectionChanged);
 			// 
 			// labelPersonas
 			// 
@@ -141,6 +134,7 @@ namespace ProjectCovid {
 			this->lbAmigos->Name = L"lbAmigos";
 			this->lbAmigos->Size = System::Drawing::Size(160, 316);
 			this->lbAmigos->TabIndex = 2;
+			this->lbAmigos->SelectedIndexChanged += gcnew System::EventHandler(this, &MyForm::lbAmigos_SelectedIndexChanged);
 			// 
 			// lbDisponibles
 			// 
@@ -151,6 +145,7 @@ namespace ProjectCovid {
 			this->lbDisponibles->Name = L"lbDisponibles";
 			this->lbDisponibles->Size = System::Drawing::Size(160, 316);
 			this->lbDisponibles->TabIndex = 3;
+			this->lbDisponibles->SelectedIndexChanged += gcnew System::EventHandler(this, &MyForm::lbDisponibles_SelectedIndexChanged);
 			// 
 			// labelAmigos
 			// 
@@ -186,6 +181,7 @@ namespace ProjectCovid {
 			this->btAmigoToDisponible->TabIndex = 6;
 			this->btAmigoToDisponible->Text = L"-->";
 			this->btAmigoToDisponible->UseVisualStyleBackColor = true;
+			this->btAmigoToDisponible->Click += gcnew System::EventHandler(this, &MyForm::btAmigoToDisponible_Click);
 			// 
 			// btDisponibleToAmigo
 			// 
@@ -195,16 +191,7 @@ namespace ProjectCovid {
 			this->btDisponibleToAmigo->TabIndex = 7;
 			this->btDisponibleToAmigo->Text = L"<--";
 			this->btDisponibleToAmigo->UseVisualStyleBackColor = true;
-			// 
-			// button1
-			// 
-			this->button1->Location = System::Drawing::Point(56, 22);
-			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(75, 23);
-			this->button1->TabIndex = 8;
-			this->button1->Text = L"button1";
-			this->button1->UseVisualStyleBackColor = true;
-			this->button1->Click += gcnew System::EventHandler(this, &MyForm::button1_Click);
+			this->btDisponibleToAmigo->Click += gcnew System::EventHandler(this, &MyForm::btDisponibleToAmigo_Click);
 			// 
 			// MyForm
 			// 
@@ -213,7 +200,6 @@ namespace ProjectCovid {
 			this->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(43)), static_cast<System::Int32>(static_cast<System::Byte>(45)),
 				static_cast<System::Int32>(static_cast<System::Byte>(66)));
 			this->ClientSize = System::Drawing::Size(884, 461);
-			this->Controls->Add(this->button1);
 			this->Controls->Add(this->btDisponibleToAmigo);
 			this->Controls->Add(this->btAmigoToDisponible);
 			this->Controls->Add(this->label1);
@@ -233,13 +219,103 @@ namespace ProjectCovid {
 		}
 #pragma endregion
 	private: System::Void dataGridView1_CellContentClick(System::Object^ sender, System::Windows::Forms::DataGridViewCellEventArgs^ e) {
+
 	}
 	private: System::Void MyForm_Load(System::Object^ sender, System::EventArgs^ e) {
 	}
 private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
-	String^ consulta = "INSERT INTO People VALUES (23, 'Luis', 'Fonsi')";
-	BDConn^ sbeve = gcnew BDConn();
-	sbeve->Insert(consulta);
+	String^ SQLQuery = "INSERT INTO People VALUES (123,'Pepe','Villuela')";
+	String^ connectionInfo = "datasource=ingreq2021-mysql.cobadwnzalab.eu-central-1.rds.amazonaws.com;port=3306;username=grupo11;password=villalbaaguayo2020;database=apsgrupo11";
+	MySqlConnection^ conn = gcnew MySqlConnection(connectionInfo);
+	MySqlCommand^ connCmd = gcnew MySqlCommand(SQLQuery, conn);
+	MySqlDataReader^ dataReader;
+
+	try {
+		conn->Open();
+		dataReader=connCmd->ExecuteReader();
+	}
+	catch (Exception^ex) {
+		MessageBox::Show(ex->Message);
+	}
 }	
+private: System::Void btAmigoToDisponible_Click(System::Object^ sender, System::EventArgs^ e) {
+	String^ SQLQuery = "";//query borrar ids de los dos de la tabla friend
+	String^ connectionInfo = "datasource=ingreq2021-mysql.cobadwnzalab.eu-central-1.rds.amazonaws.com;port=3306;username=grupo11;password=villalbaaguayo2020;database=apsgrupo11";
+	MySqlConnection^ conn = gcnew MySqlConnection(connectionInfo);
+	MySqlCommand^ connCmd = gcnew MySqlCommand(SQLQuery, conn);
+	connCmd->BeginExecuteNonQuery();//Ejecutar query
+	MostrarSeleccionado();
+
+}
+private: System::Void gvPersonas_SelectionChanged(System::Object^ sender, System::EventArgs^ e) {
+	if (gvPersonas->SelectedRows->Count > 0)
+	{
+		try
+		{
+			int i = (int)gvPersonas->SelectedRows[0]->Cells[0]->Value;
+
+			String^ u = (String^)gvPersonas->SelectedRows[0]->Cells[1]->Value;
+
+			String^ p = (String^)gvPersonas->SelectedRows[0]->Cells[2]->Value;
+
+			seleccionado = gcnew Persona(i, u, p);
+			MostrarSeleccionado();
+		}
+		catch (Exception^ ex)
+		{
+			MessageBox::Show("ERROR: " + ex->Message);
+		}
+	}
+}
+
+	   private: System::Void MostrarSeleccionado() {
+		   if (seleccionado == nullptr)
+		   {
+			   gvPersonas->ClearSelection();
+			   lbAmigos->DataSource = nullptr;
+			   lbDisponibles->DataSource = nullptr;
+		   }
+		   else
+		   {
+			   DataSet^ dset =  seleccionado->amigos();
+			   lbAmigos->DataSource = dset->Tables;
+			   lbDisponibles->DataSource = seleccionado->disponibles(dset)->Tables;
+		   }
+	   }
+
+private: System::Void lbAmigos_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
+	try
+	{
+		int i = (int)lbAmigos->SelectedValue;
+		String^ u = (String^)lbAmigos->SelectedValue;
+		String^ p = (String^)lbAmigos->SelectedValue;
+		seleccionado2 = gcnew Persona(i, u, p);
+	}
+	catch (Exception^ ex)
+	{
+		MessageBox::Show("ERROR: " + ex->Message);
+	}
+}
+private: System::Void btDisponibleToAmigo_Click(System::Object^ sender, System::EventArgs^ e) {
+	String^ SQLQuery = "";//añadir id a amigos
+	String^ connectionInfo = "datasource=ingreq2021-mysql.cobadwnzalab.eu-central-1.rds.amazonaws.com;port=3306;username=grupo11;password=villalbaaguayo2020;database=apsgrupo11";
+	MySqlConnection^ conn = gcnew MySqlConnection(connectionInfo);
+	MySqlCommand^ connCmd = gcnew MySqlCommand(SQLQuery, conn);
+	connCmd->BeginExecuteNonQuery();//Ejecutar query
+	MostrarSeleccionado();
+}
+private: System::Void lbDisponibles_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
+	try
+	{
+		int i = (int)lbAmigos->SelectedValue;
+		String^ u = (String^)lbAmigos->SelectedValue;
+		String^ p = (String^)lbAmigos->SelectedValue;
+		seleccionado2 = gcnew Persona(i, u, p);
+	}
+	catch (Exception^ ex)
+	{
+		MessageBox::Show("ERROR: " + ex->Message);
+	}
+}
 };
 }

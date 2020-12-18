@@ -227,3 +227,6 @@ Assembly System.Xml.XPath.XDocument, Version=4.1.0.0, Culture=neutral, PublicKey
 Class ProjectCovid.MyForm: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
   :System.Windows.Forms.Form
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    ProjectCovid.Persona seleccionado : Public
+    ProjectCovid.Persona seleccionado2 : Public

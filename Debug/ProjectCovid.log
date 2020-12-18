@@ -1,4 +1,10 @@
 ﻿  MyForm.cpp
-W:\SubEscritorio\Uma\Gestion de la información\RastreoCovid\MyForm.cpp(8,1): warning C4829: Parámetros posiblemente incorrectos para la función main. Utilice 'int main(Platform::Array<Platform::String^>^ argv)'
-  BDConn.obj : se encontró un módulo MSIL; vinculación incremental deshabilitada para MSIL; ejecutando vínculo completo
-  ProjectCovid.vcxproj -> W:\SubEscritorio\Uma\Gestion de la información\RastreoCovid\Debug\ProjectCovid.exe
+C:\Users\Paublito9\Desktop\RastreoCovid\MyForm.h(23,24): warning C4677: 'seleccionado': la signatura de un miembro no privado contiene un tipo privado de ensamblado de 'ProjectCovid::Persona'
+C:\Users\Paublito9\Desktop\RastreoCovid\Persona.h(14): message : vea la declaración de 'ProjectCovid::Persona'
+C:\Users\Paublito9\Desktop\RastreoCovid\MyForm.h(24,25): warning C4677: 'seleccionado2': la signatura de un miembro no privado contiene un tipo privado de ensamblado de 'ProjectCovid::Persona'
+C:\Users\Paublito9\Desktop\RastreoCovid\Persona.h(14): message : vea la declaración de 'ProjectCovid::Persona'
+C:\Users\Paublito9\Desktop\RastreoCovid\MyForm.cpp(8,1): warning C4829: Parámetros posiblemente incorrectos para la función main. Utilice 'int main(Platform::Array<Platform::String^>^ argv)'
+  Persona.cpp
+  Generando código...
+  MyForm.obj : se encontró un módulo MSIL; vinculación incremental deshabilitada para MSIL; ejecutando vínculo completo
+  ProjectCovid.vcxproj -> C:\Users\Paublito9\Desktop\RastreoCovid\Debug\ProjectCovid.exe
