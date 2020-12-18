@@ -1,7 +1,9 @@
 #pragma once
+#include "BDConn.h"
 
 
 namespace ProjectCovid {
+
 
 	using namespace System;
 	using namespace System::ComponentModel;
@@ -10,6 +12,8 @@ namespace ProjectCovid {
 	using namespace System::Data;
 	using namespace System::Drawing;
 	using namespace MySql::Data::MySqlClient;
+	
+	
 
 	/// <summary>
 	/// Ventana principal del programa.
@@ -233,19 +237,9 @@ namespace ProjectCovid {
 	private: System::Void MyForm_Load(System::Object^ sender, System::EventArgs^ e) {
 	}
 private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
-	String^ SQLQuery = "INSERT INTO People VALUES (123,'Pepe','Villuela')";
-	String^ connectionInfo = "datasource=ingreq2021-mysql.cobadwnzalab.eu-central-1.rds.amazonaws.com;port=3306;username=grupo11;password=villalbaaguayo2020;database=apsgrupo11";
-	MySqlConnection^ conn = gcnew MySqlConnection(connectionInfo);
-	MySqlCommand^ connCmd = gcnew MySqlCommand(SQLQuery, conn);
-	MySqlDataReader^ dataReader;
-
-	try {
-		conn->Open();
-		dataReader=connCmd->ExecuteReader();
-	}
-	catch (Exception^ex) {
-		MessageBox::Show(ex->Message);
-	}
+	String^ consulta = "INSERT INTO People VALUES (23, 'Luis', 'Fonsi')";
+	BDConn^ sbeve = gcnew BDConn();
+	sbeve->Insert(consulta);
 }	
 };
 }
