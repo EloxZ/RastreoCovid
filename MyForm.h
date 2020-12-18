@@ -1,5 +1,5 @@
 #pragma once
-
+#include "Persona.h"
 
 namespace ProjectCovid {
 
@@ -16,16 +16,13 @@ namespace ProjectCovid {
 	/// </summary>
 	public ref class MyForm : public System::Windows::Forms::Form
 	{
+	private:Persona^ seleccionado;
 	public:
 		MyForm(void)
 		{
 			InitializeComponent();
-
+			seleccionado = gcnew Persona(-1, "A", "B");
 			//Funciones utiles
-			//MySqlCommand^ connCmd = gcnew MySqlCommand(SQLQuery, conn);
-			//MySqlDataReader^ dataReader;
-
-
 			// Buscar en la base de datos la tabla People
 			String^ SQLQuery = "SELECT * FROM People;";
 			String^ connectionInfo = "datasource=ingreq2021-mysql.cobadwnzalab.eu-central-1.rds.amazonaws.com;port=3306;username=grupo11;password=villalbaaguayo2020;database=apsgrupo11";
@@ -68,7 +65,7 @@ namespace ProjectCovid {
 		/// <summary>
 		/// Variable del diseñador necesaria.
 		/// </summary>
-		System::ComponentModel::Container ^components;
+		System::ComponentModel::Container^ components;
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
@@ -104,6 +101,7 @@ namespace ProjectCovid {
 			this->gvPersonas->Size = System::Drawing::Size(343, 319);
 			this->gvPersonas->TabIndex = 0;
 			this->gvPersonas->CellContentClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &MyForm::dataGridView1_CellContentClick);
+			this->gvPersonas->SelectionChanged += gcnew System::EventHandler(this, &MyForm::gvPersonas_SelectionChanged);
 			// 
 			// labelPersonas
 			// 
@@ -172,6 +170,7 @@ namespace ProjectCovid {
 			this->btAmigoToDisponible->TabIndex = 6;
 			this->btAmigoToDisponible->Text = L"-->";
 			this->btAmigoToDisponible->UseVisualStyleBackColor = true;
+			this->btAmigoToDisponible->Click += gcnew System::EventHandler(this, &MyForm::btAmigoToDisponible_Click);
 			// 
 			// btDisponibleToAmigo
 			// 
@@ -181,6 +180,7 @@ namespace ProjectCovid {
 			this->btDisponibleToAmigo->TabIndex = 7;
 			this->btDisponibleToAmigo->Text = L"<--";
 			this->btDisponibleToAmigo->UseVisualStyleBackColor = true;
+			this->btDisponibleToAmigo->Click += gcnew System::EventHandler(this, &MyForm::btDisponibleToAmigo_Click);
 			// 
 			// MyForm
 			// 
@@ -211,20 +211,131 @@ namespace ProjectCovid {
 	}
 	private: System::Void MyForm_Load(System::Object^ sender, System::EventArgs^ e) {
 	}
-private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
-	String^ SQLQuery = "INSERT INTO People VALUES (123,'Pepe','Villuela')";
-	String^ connectionInfo = "datasource=ingreq2021-mysql.cobadwnzalab.eu-central-1.rds.amazonaws.com;port=3306;username=grupo11;password=villalbaaguayo2020;database=apsgrupo11";
-	MySqlConnection^ conn = gcnew MySqlConnection(connectionInfo);
-	MySqlCommand^ connCmd = gcnew MySqlCommand(SQLQuery, conn);
-	MySqlDataReader^ dataReader;
+	private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
+		String^ SQLQuery = "INSERT INTO People VALUES (123,'Pepe','Villuela')";
+		String^ connectionInfo = "datasource=ingreq2021-mysql.cobadwnzalab.eu-central-1.rds.amazonaws.com;port=3306;username=grupo11;password=villalbaaguayo2020;database=apsgrupo11";
+		MySqlConnection^ conn = gcnew MySqlConnection(connectionInfo);
+		MySqlCommand^ connCmd = gcnew MySqlCommand(SQLQuery, conn);
+		MySqlDataReader^ dataReader;
 
-	try {
-		conn->Open();
-		dataReader=connCmd->ExecuteReader();
+		try {
+			conn->Open();
+			dataReader = connCmd->ExecuteReader();
+		}
+		catch (Exception^ ex) {
+			MessageBox::Show(ex->Message);
+		}
 	}
-	catch (Exception^ex) {
-		MessageBox::Show(ex->Message);
+
+	private: System::Void cargarAmigos() {
+		try {
+			lbAmigos->Items->Clear();
+			String^ SQLQuery = "select * from People where ID in  ((select ID2 from Friends where ID1 = " + seleccionado->getId() + ") union (select ID1 from Friends where ID2 = " + seleccionado->getId() + "));";
+			String^ connectionInfo = "datasource=ingreq2021-mysql.cobadwnzalab.eu-central-1.rds.amazonaws.com;port=3306;username=grupo11;password=villalbaaguayo2020;database=apsgrupo11";
+			MySqlConnection^ conn = gcnew MySqlConnection(connectionInfo);
+			MySqlDataAdapter^ adpt = gcnew MySqlDataAdapter(SQLQuery, conn);
+
+			DataSet^ dset = gcnew DataSet();
+			adpt->Fill(dset);
+			int max = dset->Tables[0]->Rows->Count;
+
+			for (int i = 0; i < max; i++) {
+				lbAmigos->Items->Add(dset->Tables[0]->Rows[i]->ItemArray[0]->ToString() + ": " + dset->Tables[0]->Rows[i]->ItemArray[1]->ToString()
+					+ " " + dset->Tables[0]->Rows[i]->ItemArray[2]->ToString());
+			}
+		}
+		catch (Exception^ ex) {
+			MessageBox::Show("ERROR: " + ex->Message);
+		}
 	}
-}	
-};
+
+	private: System::Void cargarDisponibles() {
+		try {
+			lbDisponibles->Items->Clear();
+			String^ SQLQuery = "select * from People where ID not in ((select ID2 from Friends where ID1  =" + seleccionado->getId() + ") union (select ID1 from Friends where ID2 = " + seleccionado->getId() + ")) and ID != " + seleccionado->getId() + ";";
+			String^ connectionInfo = "datasource=ingreq2021-mysql.cobadwnzalab.eu-central-1.rds.amazonaws.com;port=3306;username=grupo11;password=villalbaaguayo2020;database=apsgrupo11";
+			MySqlConnection^ conn = gcnew MySqlConnection(connectionInfo);
+			MySqlDataAdapter^ adpt = gcnew MySqlDataAdapter(SQLQuery, conn);
+
+			DataSet^ dset = gcnew DataSet();
+			adpt->Fill(dset);
+			int max = dset->Tables[0]->Rows->Count;
+
+			for (int i = 0; i < max; i++) {
+				lbDisponibles->Items->Add(dset->Tables[0]->Rows[i]->ItemArray[0]->ToString() + ": " + dset->Tables[0]->Rows[i]->ItemArray[1]->ToString()
+					+ " " + dset->Tables[0]->Rows[i]->ItemArray[2]->ToString());
+			}
+		}
+		catch (Exception^ ex) {
+			MessageBox::Show("ERROR: " + ex->Message);
+		}
+	}
+
+
+	private: System::Void gvPersonas_SelectionChanged(System::Object^ sender, System::EventArgs^ e) {
+		if (gvPersonas->SelectedRows->Count > 0)
+		{
+			try
+			{
+				int id = (int)gvPersonas->SelectedRows[0]->Cells[0]->Value;
+				String^ u = (String^)gvPersonas->SelectedRows[0]->Cells[1]->Value;
+				String^ p = (String^)gvPersonas->SelectedRows[0]->Cells[2]->Value;
+
+				seleccionado = gcnew Persona(id, u, p);
+
+				if (seleccionado->getId() == -1)
+				{
+					gvPersonas->ClearSelection();
+				}
+				else
+				{
+					cargarAmigos();
+					cargarDisponibles();
+				}
+			}
+			catch (Exception^ ex)
+			{
+				MessageBox::Show("ERROR: " + ex->Message);
+			}
+		}
+	}
+
+	private: System::Void btAmigoToDisponible_Click(System::Object^ sender, System::EventArgs^ e) {
+		if (lbAmigos->SelectedIndex >= 0) {
+			try {
+				String^ persona = (String^)lbAmigos->SelectedItem;
+				String^ b = (String^)persona->Split(':')[0];
+				int id = Convert::ToInt32(b);
+				Persona^ persona2 = gcnew Persona(id);
+				seleccionado->BorrarAmigo(persona2);
+				cargarAmigos();
+				cargarDisponibles();
+
+			}
+			catch (Exception^ ex) {
+				MessageBox::Show("ERROR: " + ex->Message);
+			}
+		}
+	}
+
+	private: System::Void btDisponibleToAmigo_Click(System::Object^ sender, System::EventArgs^ e) {
+		if (lbDisponibles->SelectedIndex >= 0) {
+			try {
+				String^ persona = (String^)lbDisponibles->SelectedItem;
+				String^ b = (String^)persona->Split(':')[0];
+				int id = Convert::ToInt32(b);
+				Persona^ persona2 = gcnew Persona(id);
+				seleccionado->AñadirAmigo(persona2);
+				cargarAmigos();
+				cargarDisponibles();
+
+			}
+			catch (Exception^ ex) {
+				MessageBox::Show("ERROR: " + ex->Message);
+			}
+		}
+
+
+	}
+	};
 }
