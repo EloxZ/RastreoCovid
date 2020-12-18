@@ -1,7 +1,6 @@
 #pragma once
 #include <string>
 #include <list>
-#include "Persona.h"
 namespace ProjectCovid {
 
     using namespace System;
@@ -18,9 +17,6 @@ namespace ProjectCovid {
         int id;
         String^ firstname;
         String^ lastname;
-        
-        String^ connectionInfo = "datasource=ingreq2021-mysql.cobadwnzalab.eu-central-1.rds.amazonaws.com;port=3306;username=grupo11;password=villalbaaguayo2020;database=apsgrupo11";
-        MySqlConnection^ conn = gcnew MySqlConnection(connectionInfo);
 
     public:
         Persona(int i, String^ u, String^ p) {
@@ -40,8 +36,10 @@ namespace ProjectCovid {
         Persona(int i)
         {
             try {
-                
                 String^ SQLQuery = "SELECT * FROM People WHERE ID = " + i.ToString() + ";";
+                String^ connectionInfo = "datasource=ingreq2021-mysql.cobadwnzalab.eu-central-1.rds.amazonaws.com;port=3306;username=grupo11;password=villalbaaguayo2020;database=apsgrupo11";
+                MySqlConnection^ conn = gcnew MySqlConnection(connectionInfo);
+               
                 MySqlCommand^ connCmd = gcnew MySqlCommand(SQLQuery, conn);
               
                 conn->Open();
@@ -60,13 +58,17 @@ namespace ProjectCovid {
             {
                 MessageBox::Show(ex->Message);
             }
+
             
         }
+
         void AñadirAmigo(Persona^ p2)
         {
-            
+
             try {
                 String^ SQLQuery = "INSERT INTO Friends VALUES (" + this->id + ", " + p2->getId() + ")";
+                String^ connectionInfo = "datasource=ingreq2021-mysql.cobadwnzalab.eu-central-1.rds.amazonaws.com;port=3306;username=grupo11;password=villalbaaguayo2020;database=apsgrupo11";
+                MySqlConnection^ conn = gcnew MySqlConnection(connectionInfo);
                 MySqlCommand^ connCmd = gcnew MySqlCommand(SQLQuery, conn);
                 conn->Open();
                 MySqlDataReader^ dr = connCmd->ExecuteReader();
@@ -75,13 +77,16 @@ namespace ProjectCovid {
             {
                 MessageBox::Show(ex->Message);
             }
-            
+
         }
+
         void BorrarAmigo(Persona^ p2)
         {
 
             try {
                 String^ SQLQuery = "DELETE FROM Friends WHERE ((ID1 =  " + this->id + " AND ID2 = " + p2->getId() + ") OR (ID1 = " + p2->getId() + " AND ID2 = " + this->id + "));";
+                String^ connectionInfo = "datasource=ingreq2021-mysql.cobadwnzalab.eu-central-1.rds.amazonaws.com;port=3306;username=grupo11;password=villalbaaguayo2020;database=apsgrupo11";
+                MySqlConnection^ conn = gcnew MySqlConnection(connectionInfo);
                 MySqlCommand^ connCmd = gcnew MySqlCommand(SQLQuery, conn);
                 conn->Open();
                 MySqlDataReader^ dr = connCmd->ExecuteReader();
@@ -92,8 +97,6 @@ namespace ProjectCovid {
             }
 
         }
-
     };
-
 }
 
