@@ -24,3 +24,24 @@ W:\SubEscritorio\Uma\Gestion de la información\RastreoCovid\Debug\K4os.Hash.xxH
 W:\SubEscritorio\Uma\Gestion de la información\RastreoCovid\Debug\System.Numerics.Vectors.dll
 W:\SubEscritorio\Uma\Gestion de la información\RastreoCovid\Debug\System.Runtime.CompilerServices.Unsafe.dll
 W:\SubEscritorio\Uma\Gestion de la información\RastreoCovid\Debug\MySql.Data.xml
+C:\Users\EloyB\Desktop\RastreoCovid-Ivan\Debug\ProjectCovid.vcxprojAssemblyReference.cache
+C:\Users\EloyB\Desktop\RastreoCovid-Ivan\Debug\ProjectCovid.exe.config
+C:\Users\EloyB\Desktop\RastreoCovid-Ivan\Debug\ProjectCovid.MyForm.resources
+C:\Users\EloyB\Desktop\RastreoCovid-Ivan\Debug\ProjectCovid.vcxproj.GenerateResource.cache
+C:\Users\EloyB\Desktop\RastreoCovid-Ivan\Debug\ProjectCovid.vcxproj.CopyComplete
+C:\Users\EloyB\Desktop\RastreoCovid-Ivan\Debug\ProjectCovid.exe
+C:\Users\EloyB\Desktop\RastreoCovid-Ivan\Debug\ProjectCovid.pdb
+C:\Users\EloyB\Desktop\RastreoCovid-Ivan\Debug\MySql.Data.dll
+C:\Users\EloyB\Desktop\RastreoCovid-Ivan\Debug\Google.Protobuf.dll
+C:\Users\EloyB\Desktop\RastreoCovid-Ivan\Debug\Zstandard.Net.dll
+C:\Users\EloyB\Desktop\RastreoCovid-Ivan\Debug\K4os.Compression.LZ4.Streams.dll
+C:\Users\EloyB\Desktop\RastreoCovid-Ivan\Debug\BouncyCastle.Crypto.dll
+C:\Users\EloyB\Desktop\RastreoCovid-Ivan\Debug\Ubiety.Dns.Core.dll
+C:\Users\EloyB\Desktop\RastreoCovid-Ivan\Debug\Renci.SshNet.dll
+C:\Users\EloyB\Desktop\RastreoCovid-Ivan\Debug\System.Memory.dll
+C:\Users\EloyB\Desktop\RastreoCovid-Ivan\Debug\System.Buffers.dll
+C:\Users\EloyB\Desktop\RastreoCovid-Ivan\Debug\K4os.Compression.LZ4.dll
+C:\Users\EloyB\Desktop\RastreoCovid-Ivan\Debug\K4os.Hash.xxHash.dll
+C:\Users\EloyB\Desktop\RastreoCovid-Ivan\Debug\System.Numerics.Vectors.dll
+C:\Users\EloyB\Desktop\RastreoCovid-Ivan\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\EloyB\Desktop\RastreoCovid-Ivan\Debug\MySql.Data.xml
