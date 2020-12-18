@@ -3,3 +3,24 @@ C:\Users\EloyB\source\repos\ProjectCovid\Debug\ProjectCovid.exe
 C:\Users\EloyB\source\repos\ProjectCovid\Debug\ProjectCovid.pdb
 C:\Users\EloyB\source\repos\ProjectCovid\Debug\ProjectCovid.MyForm.resources
 C:\Users\EloyB\source\repos\ProjectCovid\Debug\ProjectCovid.vcxproj.GenerateResource.cache
+W:\SubEscritorio\Uma\Gestion de la información\RastreoCovid\Debug\ProjectCovid.vcxprojAssemblyReference.cache
+W:\SubEscritorio\Uma\Gestion de la información\RastreoCovid\Debug\ProjectCovid.MyForm.resources
+W:\SubEscritorio\Uma\Gestion de la información\RastreoCovid\Debug\ProjectCovid.vcxproj.GenerateResource.cache
+W:\SubEscritorio\Uma\Gestion de la información\RastreoCovid\Debug\ProjectCovid.exe
+W:\SubEscritorio\Uma\Gestion de la información\RastreoCovid\Debug\ProjectCovid.pdb
+W:\SubEscritorio\Uma\Gestion de la información\RastreoCovid\Debug\ProjectCovid.exe.config
+W:\SubEscritorio\Uma\Gestion de la información\RastreoCovid\Debug\ProjectCovid.vcxproj.CopyComplete
+W:\SubEscritorio\Uma\Gestion de la información\RastreoCovid\Debug\MySql.Data.dll
+W:\SubEscritorio\Uma\Gestion de la información\RastreoCovid\Debug\Google.Protobuf.dll
+W:\SubEscritorio\Uma\Gestion de la información\RastreoCovid\Debug\Zstandard.Net.dll
+W:\SubEscritorio\Uma\Gestion de la información\RastreoCovid\Debug\K4os.Compression.LZ4.Streams.dll
+W:\SubEscritorio\Uma\Gestion de la información\RastreoCovid\Debug\BouncyCastle.Crypto.dll
+W:\SubEscritorio\Uma\Gestion de la información\RastreoCovid\Debug\Ubiety.Dns.Core.dll
+W:\SubEscritorio\Uma\Gestion de la información\RastreoCovid\Debug\Renci.SshNet.dll
+W:\SubEscritorio\Uma\Gestion de la información\RastreoCovid\Debug\System.Memory.dll
+W:\SubEscritorio\Uma\Gestion de la información\RastreoCovid\Debug\System.Buffers.dll
+W:\SubEscritorio\Uma\Gestion de la información\RastreoCovid\Debug\K4os.Compression.LZ4.dll
+W:\SubEscritorio\Uma\Gestion de la información\RastreoCovid\Debug\K4os.Hash.xxHash.dll
+W:\SubEscritorio\Uma\Gestion de la información\RastreoCovid\Debug\System.Numerics.Vectors.dll
+W:\SubEscritorio\Uma\Gestion de la información\RastreoCovid\Debug\System.Runtime.CompilerServices.Unsafe.dll
+W:\SubEscritorio\Uma\Gestion de la información\RastreoCovid\Debug\MySql.Data.xml

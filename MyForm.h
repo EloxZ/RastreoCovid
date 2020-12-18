@@ -1,6 +1,9 @@
 #pragma once
+#include "BDConn.h"
+
 
 namespace ProjectCovid {
+
 
 	using namespace System;
 	using namespace System::ComponentModel;
@@ -8,6 +11,9 @@ namespace ProjectCovid {
 	using namespace System::Windows::Forms;
 	using namespace System::Data;
 	using namespace System::Drawing;
+	using namespace MySql::Data::MySqlClient;
+	
+	
 
 	/// <summary>
 	/// Ventana principal del programa.
@@ -47,6 +53,7 @@ namespace ProjectCovid {
 	private: System::Windows::Forms::Label^ label1;
 	private: System::Windows::Forms::Button^ btAmigoToDisponible;
 	private: System::Windows::Forms::Button^ btDisponibleToAmigo;
+	private: System::Windows::Forms::Button^ button1;
 	protected:
 
 	private:
@@ -73,6 +80,7 @@ namespace ProjectCovid {
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->btAmigoToDisponible = (gcnew System::Windows::Forms::Button());
 			this->btDisponibleToAmigo = (gcnew System::Windows::Forms::Button());
+			this->button1 = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->gvPersonas))->BeginInit();
 			this->SuspendLayout();
 			// 
@@ -188,6 +196,16 @@ namespace ProjectCovid {
 			this->btDisponibleToAmigo->Text = L"<--";
 			this->btDisponibleToAmigo->UseVisualStyleBackColor = true;
 			// 
+			// button1
+			// 
+			this->button1->Location = System::Drawing::Point(56, 22);
+			this->button1->Name = L"button1";
+			this->button1->Size = System::Drawing::Size(75, 23);
+			this->button1->TabIndex = 8;
+			this->button1->Text = L"button1";
+			this->button1->UseVisualStyleBackColor = true;
+			this->button1->Click += gcnew System::EventHandler(this, &MyForm::button1_Click);
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -195,6 +213,7 @@ namespace ProjectCovid {
 			this->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(43)), static_cast<System::Int32>(static_cast<System::Byte>(45)),
 				static_cast<System::Int32>(static_cast<System::Byte>(66)));
 			this->ClientSize = System::Drawing::Size(884, 461);
+			this->Controls->Add(this->button1);
 			this->Controls->Add(this->btDisponibleToAmigo);
 			this->Controls->Add(this->btAmigoToDisponible);
 			this->Controls->Add(this->label1);
@@ -206,6 +225,7 @@ namespace ProjectCovid {
 			this->Name = L"MyForm";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"Rastreo Covid-19";
+			this->Load += gcnew System::EventHandler(this, &MyForm::MyForm_Load);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->gvPersonas))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
@@ -214,5 +234,12 @@ namespace ProjectCovid {
 #pragma endregion
 	private: System::Void dataGridView1_CellContentClick(System::Object^ sender, System::Windows::Forms::DataGridViewCellEventArgs^ e) {
 	}
-	};
+	private: System::Void MyForm_Load(System::Object^ sender, System::EventArgs^ e) {
+	}
+private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
+	String^ consulta = "INSERT INTO People VALUES (23, 'Luis', 'Fonsi')";
+	BDConn^ sbeve = gcnew BDConn();
+	sbeve->Insert(consulta);
+}	
+};
 }
