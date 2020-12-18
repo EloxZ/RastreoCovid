@@ -1,6 +1,6 @@
-﻿  .NETFramework,Version=v4.7.2.AssemblyAttributes.cpp
-  MyForm.cpp
+﻿  MyForm.cpp
 W:\SubEscritorio\Uma\Gestion de la información\RastreoCovid\MyForm.cpp(8,1): warning C4829: Parámetros posiblemente incorrectos para la función main. Utilice 'int main(Platform::Array<Platform::String^>^ argv)'
+  Persona.cpp
   Generando código...
   MyForm.obj : se encontró un módulo MSIL; vinculación incremental deshabilitada para MSIL; ejecutando vínculo completo
   ProjectCovid.vcxproj -> W:\SubEscritorio\Uma\Gestion de la información\RastreoCovid\Debug\ProjectCovid.exe
